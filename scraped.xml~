@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<author>
+<publication>
+<title>Machine learning in bioinformatics</title>
+<authors>P Larrañaga, B Calvo, R Santana, C Bielza, J Galdiano, I Inza, JA Lozano, R ...</authors>
+<year>2006</year>
+<citedBy>183</citedBy>
+</publication>
+<publication>
+<title>On time-dependent wavelet denoising</title>
+<authors>B Vidakovic, CB Lozoya</authors>
+<year>1998</year>
+<citedBy>105</citedBy>
+</publication>
+<publication>
+<title>A comparison of graphical techniques for asymmetric decision problems</title>
+<authors>C Bielza, PP Shenoy</authors>
+<year>1999</year>
+<citedBy>60</citedBy>
+</publication>
+<publication>
+<title>Comparison of Bayesian networks and artificial neural networks for quality detection in a machining process</title>
+<authors>M Correa, C Bielza, J Pamies-Teixeira</authors>
+<year>2009</year>
+<citedBy>51</citedBy>
+</publication>
+<publication>
+<title>Decision analysis by augmented probability simulation</title>
+<authors>C Bielza, P Müller, DR Insua</authors>
+<year>1999</year>
+<citedBy>42</citedBy>
+</publication>
+<publication>
+<title>A review of estimation of distribution algorithms in bioinformatics</title>
+<authors>R Armañanzas, I Inza, R Santana, Y Saeys, JL Flores, JA Lozano, Y Van de ...</authors>
+<year>2008</year>
+<citedBy>38</citedBy>
+</publication>
+<publication>
+<title>Multi-dimensional classification with Bayesian networks</title>
+<authors>C Bielza, G Li, P Larranaga</authors>
+<year>2011</year>
+<citedBy>25</citedBy>
+</publication>
+<publication>
+<title>Mateda-2.0: Estimation of distribution algorithms in MATLAB</title>
+<authors>R Santana, C Bielza, P Larrañaga, JA Lozano, C Echegoyen, A Mendiburu, R ...</authors>
+<year>2010</year>
+<citedBy>24</citedBy>
+</publication>
+<publication>
+<title>Structural, elicitation and computational issues faced when solving complex decision making problems with influence diagrams</title>
+<authors>C Bielza, M Gómez, S Rıos-Insua, JA del Pozo</authors>
+<year>2000</year>
+<citedBy>23</citedBy>
+</publication>
+<publication>
+<title>A Bayesian network model for surface roughness prediction in the machining process</title>
+<authors>M Correa, C Bielza, MJ Ramirez, JR Alique</authors>
+<year>2008</year>
+<citedBy>21</citedBy>
+</publication>
+<publication>
+<title>A list-based compact representation for large decision tables management</title>
+<authors>JA Fernández del Pozo, C Bielza, M Gómez</authors>
+<year>2005</year>
+<citedBy>19</citedBy>
+</publication>
+<publication>
+<title>Fundamentos de los Sistemas de Ayuda a la Decisión</title>
+<authors>S Ríos Insua, C Bielza Lozoya, A Mateos Caballero</authors>
+<year>2002</year>
+<citedBy>18</citedBy>
+</publication>
+<publication>
+<title>Compromise-based approach to road project selection in Madrid metropolitan area</title>
+<authors>E Ballestero, JM Antón, C Bielza</authors>
+<year>2003</year>
+<citedBy>17</citedBy>
+</publication>
+<publication>
+<title>Bayesian chain classifiers for multidimensional classification</title>
+<authors>JH Zaragoza, LE Sucar, EF Morales, C Bielza, P Larrañaga</authors>
+<year>2011</year>
+<citedBy>16</citedBy>
+</publication>
+<publication>
+<title>Monte Carlo methods for decision analysis with applications to influence diagrams</title>
+<authors>C Bielza, P Müller, DR Insua</authors>
+<year>1996</year>
+<citedBy>16</citedBy>
+</publication>
+<publication>
+<title>Predicting citation count of Bioinformatics papers within four years of publication</title>
+<authors>A Ibáñez, P Larrañaga, C Bielza</authors>
+<year>2009</year>
+<citedBy>13</citedBy>
+</publication>
+<publication>
+<title>Mining probabilistic models learned by EDAs in the optimization of multi-objective problems</title>
+<authors>R Santana, C Bielza, JA Lozano, P Larrañaga</authors>
+<year>2009</year>
+<citedBy>13</citedBy>
+</publication>
+<publication>
+<title>Data mining validation of fluconazole breakpoints established by the European Committee on Antimicrobial Susceptibility Testing</title>
+<authors>I Cuesta, C Bielza, P Larrañaga, M Cuenca-Estrella, F Laguna, D Rodriguez ...</authors>
+<year>2009</year>
+<citedBy>13</citedBy>
+</publication>
+<publication>
+<title>A graphical decision-theoretic model for neonatal jaundice</title>
+<authors>M Gómez, C Bielza, JAF Del Pozo, S Ríos-Insua</authors>
+<year>2007</year>
+<citedBy>13</citedBy>
+</publication>
+<publication>
+<title>MATEDA: A suite of EDA programs in Matlab</title>
+<authors>R Santana, C Echegoyen, A Mendiburu, C Bielza, JA Lozano, P Larranaga, R ...</authors>
+<year>2009</year>
+<citedBy>12</citedBy>
+</publication>
+<citation>
+<authors></authors>
+<title>Bayesian chain classifiers for multidimensional classification</title>
+<pubDate>2011/7/16</pubDate>
+<publisher>AAAI Press</publisher>
+<abstract>Abstract In multidimensional classification the goal is to assign an instance to a set of different classes. This task is normally addressed either by defining a compound class variable with all the possible combinations of classes (label power-set methods, LPMs) or by building independent classifiers for each class (binary-relevance methods, BRMs). However, LPMs do not scale well and BRMs ignore the dependency relations between classes. We introduce a method for chaining binary Bayesian classifiers that combines the</abstract>
+</citation>
+<citation>
+<authors></authors>
+<title>Compromise-based approach to road project selection in Madrid metropolitan area</title>
+<pubDate>2003</pubDate>
+<publisher>Tokyo, Japan: The Society,[1957-</publisher>
+<abstract>Abstract This paper deals with an operational technique to specify the utility function in decision-making problems such as road project selection under non-strict uncertainty. We propose here a multi-criteria compromise programming (CP) proxy for utility. As a special case, the CP proxy turns into net present value. A case study on five highway projects aimed at improving transport opportunities in the Madrid metropolitan area is developed. After defining five suitable criteria or attributes for the model, these attributes (discounted value</abstract>
+</citation>
+<citation>
+<authors></authors>
+<title>MATEDA: A suite of EDA programs in Matlab</title>
+<pubDate>2009/2/18</pubDate>
+<publisher></publisher>
+<abstract>Abstract This paper describes MATEDA-2.0, a suite of programs in Matlab for estimation of distribution algorithms. The package allows the optimization of single and multi-objective problems with estimation of distribution algorithms (EDAs) based on undirected graphical models and Bayesian networks. The implementation is conceived for allowing the incorporation by the user of different combinations of selection, learning, sampling, and local search procedures. Other included methods allow the analysis of the structures learned by</abstract>
+</citation>
+<citation>
+<authors></authors>
+<title>Monte Carlo methods for decision analysis with applications to influence diagrams</title>
+<pubDate>1996</pubDate>
+<publisher>Institute of Statistics  Decision Sciences, Duke University</publisher>
+<abstract></abstract>
+</citation>
+<citation>
+<authors></authors>
+<title>Data mining validation of fluconazole breakpoints established by the European Committee on Antimicrobial Susceptibility Testing</title>
+<pubDate>2009/7/1</pubDate>
+<publisher>American Society for Microbiology</publisher>
+<abstract>ABSTRACT European Committee on Antimicrobial Susceptibility Testing (EUCAST) breakpoints classify Candida strains with a fluconazole MIC≤ 2 mg/liter as susceptible, those with a fluconazole MIC of 4 mg/liter as representing intermediate susceptibility, and those with a fluconazole MIC> 4 mg/liter as resistant. Machine learning models are supported by complex statistical analyses assessing whether the results have statistical relevance. The aim of this work was to use supervised classification algorithms to analyze</abstract>
+</citation>
+<citation>
+<authors></authors>
+<title>Predicting citation count of Bioinformatics papers within four years of publication</title>
+<pubDate>2009/12/15</pubDate>
+<publisher>Oxford University Press</publisher>
+<abstract>Abstract Motivation: Nowadays, publishers of scientific journals face the tough task of selecting high-quality articles that will attract as many readers as possible from a pool of articles. This is due to the growth of scientific output and literature. The possibility of a journal having a tool capable of predicting the citation count of an article within the first few years after publication would pave the way for new assessment systems. Results: This article presents a new approach based on building several prediction models for the</abstract>
+</citation>
+<citation>
+<authors></authors>
+<title>A list-based compact representation for large decision tables management</title>
+<pubDate>2005/2/1</pubDate>
+<publisher>North-Holland</publisher>
+<abstract>Due to the huge size of the tables we manage when dealing with real decision-making problems under uncertainty, we propose turning them into minimum storage space multidimensional matrices. The process involves searching for the best order of the matrix dimensions, which is a NP-hard problem. Moreover, during the search, the computation of the new storage space that each order requires and copying the table with respect to the new order may be too time consuming or even intractable if we want a process to work in</abstract>
+</citation>
+<citation>
+<authors></authors>
+<title>Mining probabilistic models learned by EDAs in the optimization of multi-objective problems</title>
+<pubDate>2009/7/8</pubDate>
+<publisher>ACM</publisher>
+<abstract>Abstract One of the uses of the probabilistic models learned by estimation of distribution algorithms is to reveal previous unknown information about the problem structure. In this paper we investigate the mapping between the problem structure and the dependencies captured in the probabilistic models learned by EDAs for a set of multi-objective satisfiability problems. We present and discuss the application of different data mining and visualization techniques for processing and visualizing relevant information from the structure of the</abstract>
+</citation>
+<citation>
+<authors></authors>
+<title>A graphical decision-theoretic model for neonatal jaundice</title>
+<pubDate>2007/5/1</pubDate>
+<publisher>SAGE Publications</publisher>
+<abstract>Background. Neonatal jaundice is treated daily at all hospitals. However, the routine, urgency, and case load of most doctors stop them from carefully analyzing all the factors that they would like to (and should) take into account. This article develops a complex decision support system for neonatal jaundice management. Methods. The problem is represented by means of an influence diagram, including admission and treatment decisions. The corresponding uncertainty model is built with the aid of both historical data and subjective</abstract>
+</citation>
+<citation>
+<authors></authors>
+<title>Multi-dimensional classification with Bayesian networks</title>
+<pubDate>2011/9/30</pubDate>
+<publisher>Elsevier</publisher>
+<abstract>Multi-dimensional classification aims at finding a function that assigns a vector of class values to a given vector of features. In this paper, this problem is tackled by a general family of models, called multi-dimensional Bayesian network classifiers (MBCs). This probabilistic graphical model organizes class and feature variables as three different subgraphs: class subgraph, feature subgraph, and bridge (from class to features) subgraph. Under the standard 0–1 loss function, the most probable explanation (MPE) must be computed, for</abstract>
+</citation>
+<citation>
+<authors></authors>
+<title>A review of estimation of distribution algorithms in bioinformatics</title>
+<pubDate>2008/9/11</pubDate>
+<publisher>BioMed Central</publisher>
+<abstract>Abstract Evolutionary search algorithms have become an essential asset in the algorithmic toolbox for solving high-dimensional optimization problems in across a broad range of bioinformatics problems. Genetic algorithms, the most well-known and representative evolutionary search technique, have been the subject of the major part of such applications. Estimation of distribution algorithms (EDAs) offer a novel evolutionary paradigm that constitutes a natural and attractive alternative to genetic algorithms. They make use of a</abstract>
+</citation>
+<citation>
+<authors></authors>
+<title>Decision analysis by augmented probability simulation</title>
+<pubDate>1999/7/1</pubDate>
+<publisher>INFORMS</publisher>
+<abstract>Abstract We provide a generic Monte Carlo method to find the alternative of maximum expected utility in a decision analysis. We define an artificial distribution on the product space of alternatives and states, and show that the optimal alternative is the mode of the implied marginal distribution on the alternatives. After drawing a sample from the artificial distribution, we may use exploratory data analysis tools to approximately identify the optimal alternative. We illustrate our method for some important types of influence diagrams.</abstract>
+</citation>
+<citation>
+<authors></authors>
+<title>Comparison of Bayesian networks and artificial neural networks for quality detection in a machining process</title>
+<pubDate>2009/4/30</pubDate>
+<publisher>Pergamon</publisher>
+<abstract>Machine tool automation is an important aspect for manufacturing companies facing the growing demand of profitability and high quality products as a key for competitiveness. The purpose of supervising machining processes is to detect interferences that would have a negative effect on the process but mainly on the product quality and production time. In a manufacturing environment, the prediction of surface roughness is of significant importance to achieve this objective. This paper shows the efficacy of two different machine learning</abstract>
+</citation>
+<citation>
+<authors></authors>
+<title>A comparison of graphical techniques for asymmetric decision problems</title>
+<pubDate>1999/11/1</pubDate>
+<publisher>INFORMS</publisher>
+<abstract>Abstract We compare four graphical techniques for representation and solution of asymmetric decision problems—decision trees, influence diagrams, valuation networks, and sequential decision diagrams. We solve a modified version of Covaliu and Oliver's Reactor problem using each of the four techniques. For each technique, we highlight the strengths, weaknesses, and some open issues that perhaps can be resolved with further research.</abstract>
+</citation>
+<citation>
+<authors></authors>
+<title>A Bayesian network model for surface roughness prediction in the machining process</title>
+<pubDate>2008/12/1</pubDate>
+<publisher>Taylor  Francis Group</publisher>
+<abstract>The literature reports many scientific works on the use of artificial intelligence techniques such as neural networks or fuzzy logic to predict surface roughness. This article aims at introducing Bayesian network-based classifiers to predict surface roughness (Ra) in high-speed machining. These models are appropriate as prediction techniques because the non-linearity of the machining process demands robust and reliable algorithms to deal with all the invisible trends present when a work piece is machining. The experimental test</abstract>
+</citation>
+<citation>
+<authors></authors>
+<title>Fundamentos de los Sistemas de Ayuda a la Decisión</title>
+<pubDate>2002</pubDate>
+<publisher>Ra-Ma</publisher>
+<abstract>Información del libro Fundamentos de los sistemas de ayuda a la decisión.</abstract>
+</citation>
+<citation>
+<authors></authors>
+<title>Structural, elicitation and computational issues faced when solving complex decision making problems with influence diagrams</title>
+<pubDate>2000/6/30</pubDate>
+<publisher>Pergamon</publisher>
+<abstract>Influence diagrams have become a popular tool for representing and solving decision making problems under uncertainty (Shachter, Operations Research 1986; 34: 871–82). We show here some practical difficulties when using them to construct a medical decision support system. Specifically, it is hard to tackle issues related to the problem structuring, like the existence of constraints on the sequence of decisions, and the time evolution modeling; related to the knowledge-acquisition, like probability and utility assignment; and related to</abstract>
+</citation>
+<citation>
+<authors></authors>
+<title>Mateda-2.0: Estimation of distribution algorithms in MATLAB</title>
+<pubDate>2010/7</pubDate>
+<publisher></publisher>
+<abstract>Abstract This paper describes Mateda-2.0, a MATLAB package for estimation of distribution algorithms (EDAs). This package can be used to solve single and multi-objective discrete and continuous optimization problems using EDAs based on undirected and directed probabilistic graphical models. The implementation contains several methods commonly employed by EDAs. It is also conceived as an open package to allow users to incorporate different combinations of selection, learning, sampling, and local search procedures.</abstract>
+</citation>
+<citation>
+<authors></authors>
+<title>On time-dependent wavelet denoising</title>
+<pubDate>1998/9</pubDate>
+<publisher>IEEE</publisher>
+<abstract>Abstract The authors address the shrinkage of wavelet coefficients and induced denoising in the time domain by taking into consideration the “time” behavior of a noisy signal. They illustrate the time adaptation paradigm in a thresholding procedure utilizing Bayesian hypothesis tests. Both one-dimensional (1-D) and two-dimensional (2-D) signals are considered in examples to motivate and implement the method</abstract>
+</citation>
+<citation>
+<authors></authors>
+<title>Machine learning in bioinformatics</title>
+<pubDate>2006/3/1</pubDate>
+<publisher>Oxford University Press</publisher>
+<abstract>Abstract This article reviews machine learning methods for bioinformatics. It presents modelling methods, such as supervised classification, clustering and probabilistic graphical models for knowledge discovery, as well as deterministic and stochastic heuristics for optimization. Applications in genomics, proteomics, systems biology, evolution and text mining are also shown.</abstract>
+</citation>
+<author>
