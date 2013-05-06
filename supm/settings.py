@@ -11,6 +11,8 @@ BOT_NAME = 'supm'
 SPIDER_MODULES = ['supm.spiders']
 NEWSPIDER_MODULE = 'supm.spiders'
 ITEM_PIPELINES = ['supm.pipelines.GScholarPipeline',]
+DOWNLOAD_DELAY = 0.5
+COOKIES_ENABLED = False
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'supm (+http://www.yourdomain.com)'
