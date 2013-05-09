@@ -48,10 +48,10 @@ class Test(BaseSpider):
         hxs = HtmlXPathSelector(response)
         
         item['title'] = ''.join(hxs.select('//div[@id="title"]/a/text()').extract()).encode('iso-8859-1','ignore')
-        item['authors'] = ''.join(hxs.select('//div[@class="g-section"][1]/div[@class="cit-dd"]/text()').extract()).encode('iso-8859-1','ignore')
+        item['authors'] = ''.join(hxs.select('//div[@id="main_sec"]/div[@class="cit-dl"]/div[@class="g-section"][1]/div[@class="cit-dd"]/text()').extract()).encode('iso-8859-1','ignore')
         item['pubDate'] = ''.join(hxs.select('//div[@id="pubdate_sec"]/div[@class="cit-dd"]/text()').extract()).encode('utf-8')
         item['publisher'] = ''.join(hxs.select('//div[@id="publisher_sec"]/div[@class="cit-dd"]/text()').extract()).encode('utf-8')
-        item['abstract'] = ''.join(hxs.select('//div[@id="description_sec"]/div[@class="cit-dd"]/text()').extract()).encode('utf-8')
+        item['abstract'] = ''.join(hxs.select('//div[@id="description_sec"]/div[@class="cit-dd"]/text()').extract()).encode('iso-8859-1','ignore')
         item['citedBy'] = ''.join(hxs.select('//div[@id="scholar_sec"]/div/a[@class="cit-dark-link"]/text()').re(r'[0-9]+')).encode('utf-8')
         
         

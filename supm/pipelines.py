@@ -2,10 +2,8 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/topics/item-pipeline.html
-import sys
 import MySQLdb
 
-from supm.items import GScholarItem
 from supm.items import GScholarCitationItem
 
 class SupmPipeline(object):
@@ -22,40 +20,29 @@ class GScholarPipeline(object):
         
     def process_item(self,item,spider):
 
-#        if isinstance(item,GScholarItem):
-            #process GScholarItem
-                        
+        #process Google Scholar Citation Item
         if isinstance(item,GScholarCitationItem):
-            #process CitationItem
+        
             
             citationItem = {
                             'authors' : item['authors'],
-                            'title' : item['title']
+                            'title' : str(MySQLdb.escape_string(item['title'])),
+                            'publisher': item['publisher'],
+                            'times_cited': item['citedBy'],
+                            'pub_date': item['pubDate'],
+                            'abstract': str(MySQLdb.escape_string(item['abstract']))
                             }
-            #authors = item['authors']
-            #title = item['title']
-            #publisher = item['publisher']
-            #times_cited = item['citedBy']
-            #abstract = item['abstract']
-            #year = item['pubDate']
             
-            self.cursor.execute("SELECT count(*) from publications where title = '%s'" % item['title'])
+            self.cursor.execute("SELECT count(*) from publications where title = %(title)s", dict(title = item['title']))
             numRows = self.cursor.fetchone()
             
-            if(numRows[0] == 0):
-                self.cursor.execute("""INSERT INTO publications (authors,title) VALUES
-                                    ('%(authors)s', '%(title)s'')""",
+            if (numRows[0] == 0):
+                self.cursor.execute('INSERT INTO publications (authors,title,publisher,times_cited,pub_date,source,abstract) VALUES \
+                                    (%(authors)s, %(title)s, %(publisher)s, %(times_cited)s, %(pub_date)s, "Google Scholar", %(abstract)s)',
                                     citationItem)
-                
-                #self.cursor.execute("INSERT INTO publications (title,authors,publisher,times_cited,pub_date) VALUES ('%s', '%s', '%s', '%s', '%s')"
-                #                    % (title,authors,publisher,times_cited,year))
-                                                    
+            else:
+                print "##################################################"
+                print "CITATION ALREADY EXISTS!!!!!!!:  %s" % item['title']
+                print "##################################################"
+
         return item
-    
-    def close_pider(self, spider):
-        self.file.write('\n</author>')
-        self.file.close()
-
-        
-
-
