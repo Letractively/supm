@@ -1,21 +1,10 @@
 
 import MySQLdb
+query = "helo's perteneci,  puta's powwwwwwwwww ((()));;;;;;;;;;====___32232323=+-120010201]"
 
-mydb = MySQLdb.connect('localhost','supm', 'supm', 'supmdb')
+print MySQLdb.escape_string(query)
 
-mydb.autocommit(True)
-
-mydb.set_character_set('utf8')
-
-cursor = mydb.cursor()
-cursor.execute('SET NAMES utf8;')
-cursor.execute('SET CHARACTER SET utf8;')
-cursor.execute('SET character_set_connection=utf8;')
-cursor.execute("SELECT count(*) from publications where id = 1121")
-result = cursor.fetchone()
+print str(MySQLdb.escape_string(query))
 
 
-print result[0]
-#close the connection to the database.
-cursor.close()
 print "Done"
