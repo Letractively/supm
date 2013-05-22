@@ -1,42 +1,58 @@
-#from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.spider import BaseSpider
-#from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
-
 from scrapy.http import Request
-
 from scrapy.selector import HtmlXPathSelector
-#import sys
 
+import MySQLdb
 
 #from supm.items import GScholarItem
 from supm.items import GScholarCitationItem
 
+def getAuthorsAndUrls():
+    mydb = MySQLdb.connect('localhost','supm', 'supm', 'supmdb')
+    mydb.autocommit(True)
+    mydb.set_character_set('utf8')
+    cursor = mydb.cursor()
+    cursor.execute("SELECT id, gscholar_id FROM authors")
+    rows = cursor.fetchall()
+    cursor.close()
+    
+    return rows
+
 class Test(BaseSpider):
     name = "test"
     lcount = 0
-    
+    authorID = 0
     allowed_domains = ["scholar.google.com"]
     
-    f = open("start_urls.txt")
-    start_urls = [url.strip() for url in f.readlines()]
-    f.close()
+    #f = open("start_urls.txt")
+    #authorIds = [ row[0] for row in authorsAndStartUrl]
+    #start_urls = [ 'http://scholar.google.com/citations?user='+row[1]+'&pagesize=20' for row in authorsAndStartUrl if row[1]]
+    
+    def start_requests(self):
+        for row in getAuthorsAndUrls():
+            if row[1]:
+                self.authorID = row[0]
+                link = 'http://scholar.google.com/citations?user='+row[1]+'&pagesize=20'
+                yield Request(url=link,callback=self.parse,meta={'authorId': str(row[0])})
+   
+    #start_urls = [url.strip() for url in f.readlines()]
+    #f.close()
     #start_urls = ["http://scholar.google.com/citations?user=zwSj1n8AAAAJ&pagesize=20"] #zwSj1n8AAAAJ user de concha
     
     def parse(self, response):
+        
         hxs = HtmlXPathSelector(response)
         
         #extracting links from current page
         for link in hxs.select('//td[@id="col-title"]/a[@class="cit-dark-large-link"]/@href').extract():
             link = "http://scholar.google.com"+link
-            yield Request(url=link, callback=self.process_link)
+            yield Request(url=link, callback=self.process_link,meta={'authorId': response.meta['authorId']})
         
         #handling pagination
         for nextPage in hxs.select('//td[@style="text-align:right;"]/a[@class="cit-dark-link"]/@href').extract():
             nextPage = "http://scholar.google.com" + nextPage
-            yield Request(url=nextPage, callback=self.parse)
+            yield Request(url=nextPage, callback=self.parse,meta={'authorId': response.meta['authorId']})
         
-            
-
     def process_link(self,response):
         
         item = GScholarCitationItem()
@@ -53,6 +69,8 @@ class Test(BaseSpider):
         item['publisher'] = ''.join(hxs.select('//div[@id="publisher_sec"]/div[@class="cit-dd"]/text()').extract()).encode('utf-8')
         item['abstract'] = ''.join(hxs.select('//div[@id="description_sec"]/div[@class="cit-dd"]/text()').extract()).encode('iso-8859-1','ignore')
         item['citedBy'] = ''.join(hxs.select('//div[@id="scholar_sec"]/div/a[@class="cit-dark-link"]/text()').re(r'[0-9]+')).encode('utf-8')
+        item['pubUrl'] = str(response.url)
+        item['authorId'] = response.meta['authorId']
         
         
         return item

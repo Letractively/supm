@@ -13,6 +13,9 @@ NEWSPIDER_MODULE = 'supm.spiders'
 ITEM_PIPELINES = ['supm.pipelines.GScholarPipeline',]
 DOWNLOAD_DELAY = 0.5
 COOKIES_ENABLED = False
+#CONCURRENT_REQUESTS = 1 #default 16
+#CONCURRENT_ITEMS = 1
+DOWNLOADER_DEBUG = False
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'supm (+http://www.yourdomain.com)'

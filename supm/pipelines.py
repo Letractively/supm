@@ -16,10 +16,15 @@ class GScholarPipeline(object):
         self.db = MySQLdb.connect('localhost','supm', 'supm', 'supmdb')
         self.db.autocommit(True)
         self.cursor = self.db.cursor()
+        self.authID = ''
+        self.pubID = ''
         
         
     def process_item(self,item,spider):
-
+        
+        #setting the author id so it can be associated with the publication
+        self.authID = MySQLdb.escape_string(str(item['authorId']))
+        
         #process Google Scholar Citation Item
         if isinstance(item,GScholarCitationItem):
         
@@ -30,19 +35,27 @@ class GScholarPipeline(object):
                             'publisher': item['publisher'],
                             'times_cited': item['citedBy'],
                             'pub_date': item['pubDate'],
-                            'abstract': str(MySQLdb.escape_string(item['abstract']))
+                            'abstract': str(MySQLdb.escape_string(item['abstract'])),
+                            'pub_url': MySQLdb.escape_string(item['pubUrl'])
                             }
             
-            self.cursor.execute("SELECT count(*) from publications where title = %(title)s", dict(title = item['title']))
-            numRows = self.cursor.fetchone()
+            self.cursor.execute("SELECT id from publications where title = %(title)s", dict(title = item['title']))
+            row = self.cursor.fetchone()
             
-            if (numRows[0] == 0):
-                self.cursor.execute('INSERT INTO publications (authors,title,publisher,times_cited,pub_date,source,abstract) VALUES \
-                                    (%(authors)s, %(title)s, %(publisher)s, %(times_cited)s, %(pub_date)s, "Google Scholar", %(abstract)s)',
+            if row is None:
+                self.cursor.execute('INSERT INTO publications (authors,title,publisher,times_cited,pub_date,source,abstract,pub_url) VALUES \
+                                    (%(authors)s, %(title)s, %(publisher)s, %(times_cited)s, %(pub_date)s, "Google Scholar", %(abstract)s, %(pub_url)s)',
                                     citationItem)
+                self.pubID = MySQLdb.escape_string(str(self.cursor.lastrowid))
+                self.cursor.execute("INSERT INTO  authors_has_publications (author_id, publication_id) VALUES (%s,%s)" % (self.authID, self.pubID))
             else:
-                print "##################################################"
-                print "CITATION ALREADY EXISTS!!!!!!!:  %s" % item['title']
-                print "##################################################"
+                #Title already exists
+                self.pubID = MySQLdb.escape_string(str(row[0]))
+                self.cursor.execute("INSERT INTO  authors_has_publications (author_id, publication_id) VALUES (%s,%s)" % (self.authID, self.pubID))
+            
+            #Populating the table authors_has_publications to associate the authors with their papers
+            
+                
+   
 
         return item

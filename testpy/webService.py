@@ -142,7 +142,7 @@ client = Client(searchURL, headers={'Cookie':'SID="'+result+'"'})
 queryParams = client.factory.create('queryParameters')
 queryParams['databaseId'] = 'WOS'
 queryParams['queryLanguage'] = 'en'
-queryParams['userQuery'] = 'AU=(larra?aga P)'
+queryParams['userQuery'] = 'AU=(larranaga P)'
 
 retParams = client.factory.create('retrieveParameters')
 

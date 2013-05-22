@@ -5,19 +5,15 @@
 
 from scrapy.item import Item, Field
 
-class GScholarItem(Item):
-    name = Field()
-    middleName = Field()
-    url = Field()
-    year = Field()
-    citedBy = Field()
-
 class GScholarCitationItem(Item):
     title = Field()
     authors = Field()
     pubDate = Field()
+    pubUrl = Field()
     publisher = Field()
     abstract = Field()
     citedBy = Field()
+    authorId = Field()
+   
     
     
