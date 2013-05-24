@@ -30,7 +30,7 @@ class GScholarPipeline(object):
         
             
             citationItem = {
-                            'authors' : item['authors'],
+                            'all_authors' : item['authors'],
                             'title' : str(MySQLdb.escape_string(item['title'])),
                             'publisher': item['publisher'],
                             'times_cited': item['citedBy'],
@@ -43,15 +43,15 @@ class GScholarPipeline(object):
             row = self.cursor.fetchone()
             
             if row is None:
-                self.cursor.execute('INSERT INTO publications (authors,title,publisher,times_cited,pub_date,source,abstract,pub_url) VALUES \
-                                    (%(authors)s, %(title)s, %(publisher)s, %(times_cited)s, %(pub_date)s, "Google Scholar", %(abstract)s, %(pub_url)s)',
+                self.cursor.execute('INSERT INTO publications (all_authors,title,publisher,times_cited,pub_date,source,abstract,pub_url) VALUES \
+                                    (%(all_authors)s, %(title)s, %(publisher)s, %(times_cited)s, %(pub_date)s, "Google Scholar", %(abstract)s, %(pub_url)s)',
                                     citationItem)
                 self.pubID = MySQLdb.escape_string(str(self.cursor.lastrowid))
-                self.cursor.execute("INSERT INTO  authors_has_publications (author_id, publication_id) VALUES (%s,%s)" % (self.authID, self.pubID))
+                self.cursor.execute("INSERT INTO  publications_authors (author_id, publication_id) VALUES (%s,%s)" % (self.authID, self.pubID))
             else:
                 #Title already exists
                 self.pubID = MySQLdb.escape_string(str(row[0]))
-                self.cursor.execute("INSERT INTO  authors_has_publications (author_id, publication_id) VALUES (%s,%s)" % (self.authID, self.pubID))
+                self.cursor.execute("INSERT INTO  publications_authors (author_id, publication_id) VALUES (%s,%s)" % (self.authID, self.pubID))
             
             #Populating the table authors_has_publications to associate the authors with their papers
             
