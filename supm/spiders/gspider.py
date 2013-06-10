@@ -43,10 +43,20 @@ class Test(BaseSpider):
         
         hxs = HtmlXPathSelector(response)
         
-        #extracting links from current page
-        for link in hxs.select('//td[@id="col-title"]/a[@class="cit-dark-large-link"]/@href').extract():
+        #Extracting links and publication year
+        for tableItem in hxs.select('//tr[@class="cit-table item"]'):
+        #link = "http://scholar.google.com"+link
+            link = ''.join(tableItem.select('td[@id="col-title"]/a[@class="cit-dark-large-link"]/@href').extract())
+            #print link
             link = "http://scholar.google.com"+link
-            yield Request(url=link, callback=self.process_link,meta={'authorId': response.meta['authorId']})
+            year = tableItem.select('td[@id="col-year"]/text()').extract()
+            yield Request(url=link, callback=self.process_link,meta={'authorId': response.meta['authorId'],'pubDate': year})
+        
+        
+        #extracting links from current page
+        #for link in hxs.select('//td[@id="col-title"]/a[@class="cit-dark-large-link"]/@href').extract():
+        #    link = "http://scholar.google.com"+link
+        #    yield Request(url=link, callback=self.process_link,meta={'authorId': response.meta['authorId']})
         
         #handling pagination
         for nextPage in hxs.select('//td[@style="text-align:right;"]/a[@class="cit-dark-link"]/@href').extract():
@@ -65,12 +75,12 @@ class Test(BaseSpider):
         
         item['title'] = ''.join(hxs.select('//div[@id="title"]/a/text()').extract()).encode('iso-8859-1','ignore')
         item['authors'] = ''.join(hxs.select('//div[@id="main_sec"]/div[@class="cit-dl"]/div[@class="g-section"][1]/div[@class="cit-dd"]/text()').extract()).encode('iso-8859-1','ignore')
-        item['pubDate'] = ''.join(hxs.select('//div[@id="pubdate_sec"]/div[@class="cit-dd"]/text()').extract()).encode('utf-8')
+        #item['pubDate'] = ''.join(hxs.select('//div[@id="pubdate_sec"]/div[@class="cit-dd"]/text()').extract()).encode('utf-8')
         item['publisher'] = ''.join(hxs.select('//div[@id="publisher_sec"]/div[@class="cit-dd"]/text()').extract()).encode('utf-8')
         item['abstract'] = ''.join(hxs.select('//div[@id="description_sec"]/div[@class="cit-dd"]/text()').extract()).encode('iso-8859-1','ignore')
         item['citedBy'] = ''.join(hxs.select('//div[@id="scholar_sec"]/div/a[@class="cit-dark-link"]/text()').re(r'[0-9]+')).encode('utf-8')
         item['pubUrl'] = str(response.url)
         item['authorId'] = response.meta['authorId']
-        
+        item['pubDate'] = ''.join(response.meta['pubDate']).encode('utf-8')
         
         return item
