@@ -8,6 +8,7 @@ import MySQLdb
 from supm.items import GScholarCitationItem
 
 def getAuthorsAndUrls():
+    #MUST CHANGE THIS to the correct parameters
     mydb = MySQLdb.connect('localhost','supm', 'supm', 'supmdb')
     mydb.autocommit(True)
     mydb.set_character_set('utf8')
@@ -19,7 +20,7 @@ def getAuthorsAndUrls():
     return rows
 
 class Test(BaseSpider):
-    name = "test"
+    name = "gspider"
     lcount = 0
     authorID = 0
     allowed_domains = ["scholar.google.com"]
