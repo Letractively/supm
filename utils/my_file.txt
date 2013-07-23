@@ -1,0 +1,49 @@
+<html>
+	<head>
+        <title>An Example SciVerse Scopus Search Javascript API Transaction</title>
+		<!-- SECTION 1 : Initial configuration -->
+		<link REL="stylesheet" TYPE="text/css" href="http://searchapi.scopus.com/stylesheets/css_sciverse_list_hilight.css"/>
+		<script type="text/javascript" src="http://api.elsevier.com/javascript/scopussearch.jsp"></script>
+		<script type="text/javascript">
+			<!-- SECTION 2 : Call back -->
+			   callback = function(){  document.getElementById("searchCount").innerHTML=sciverse.getTotalHits();			   
+									}
+			<!-- SECTION 3 : Running Search -->
+			 /*  runSearch = function(){
+			   document.sciverseForm.searchButton.disabled = true;
+			   var varSearchObj = new searchObj();
+			   varSearchObj.setSearch("AU-ID(7004720416)");
+			   varSearchObj.setNumResults(200);
+			   sciverse.search(varSearchObj);
+			   
+			   }*/
+		</script>
+		<!-- SECTION 4 : Setting defaults -->
+		<script type="text/javascript">
+			/*	sciverse.setApiKey("e216a9f5c60ecf6f105ba5225a09f99b");
+				sciverse.setCallback(callback);
+			*/
+					   sciverse.setApiKey("e216a9f5c60ecf6f105ba5225a09f99b");
+			   sciverse.setCallback(callback);;
+			   var varSearchObj = new searchObj();
+			   varSearchObj.setSearch("AU-ID(7004720416)");
+			   varSearchObj.setNumResults(20);
+			   sciverse.search(varSearchObj);
+	
+		</script>
+     </head>
+<!-- SECTION 5 : Rendering page -->
+     <body >
+	 <p id='searchCount'></p>
+
+		<h2>Returned sciverse Content:</h2>
+		<div id="sciverse">
+			None.
+		</div>
+	 <script type="text/javascript">
+	   			var dt = new Date();
+				while ((new Date()) - dt <= 10000) { /* Do nothing */ }
+	 </script>
+	 <p>FIN!!!</p>
+     </body>
+</html>

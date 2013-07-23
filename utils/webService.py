@@ -4,6 +4,7 @@ import math
 import xml.etree.ElementTree as ET
 import sys
 import MySQLdb
+import time
 
 #Function extractRecords
 #Param: xmlResults - xml formated records results from the soap web service response
@@ -18,8 +19,8 @@ def extractRecords(authorId,xmlResults):
     tree = ET.fromstring(xmlResults)
     
     records = tree.findall('.//REC')
-    print "ELEMENTS FOUND    "
-    print len(records)
+    #print "ELEMENTS FOUND    "
+    #print len(records)
 
     for record in records:
         
@@ -59,7 +60,13 @@ def extractRecords(authorId,xmlResults):
         #PUB_DATE
         pubInfo = staticData.find('.//pub_info')
         if pubInfo is not None:
-            insertValues += '"' + MySQLdb.escape_string(pubInfo.attrib['pubtype']) + '",'
+            #INSPEC publications don't have publicationType
+            #check first if it is a INSPEC database publication record
+            if 'WOS' in docUID.text:
+                insertValues += '"' + MySQLdb.escape_string(pubInfo.attrib['pubtype']) + '",'
+            else:
+                insertValues += 'null,'
+                
             insertValues += '"' + MySQLdb.escape_string(pubInfo.attrib['pubyear']) + '",'
         else:
             insertValues += 'null,null,'
@@ -94,20 +101,22 @@ def extractRecords(authorId,xmlResults):
         #TIMES_CITED
         timesCited = dynamicData.find('.//silo_tc')
         if timesCited is not None:
+            timesCitedNEW = timesCited.attrib['local_count']
             insertValues += timesCited.attrib['local_count']
         else:
             insertValues += '0'
+            timesCitedNEW = 0;
         
         #putting all the query together
         query += '(' + insertValues + ',\'ISI WOK\')'
         
-        insertIntoDatabase(query, authorId, docUID.text)
+        insertIntoDatabase(query, authorId, docUID.text,timesCitedNEW)
 #End function extractRecords
 
 
 
 #Function insertintoDatabase
-def insertIntoDatabase(query, authorId, docUID):
+def insertIntoDatabase(query, authorId, docUID, timesCitedNEW):
     
     mydb = MySQLdb.connect('localhost','supm', 'supm', 'supmdb')
     
@@ -123,7 +132,7 @@ def insertIntoDatabase(query, authorId, docUID):
     authorId  = MySQLdb.escape_string(authorId)
     docUID = MySQLdb.escape_string(docUID)
     
-    cursor.execute("SELECT id from publications where doc_uid = '%s'" % (docUID))
+    cursor.execute("SELECT id, times_cited from publications where doc_uid = '%s'" % (docUID))
 
     row = cursor.fetchone()
     
@@ -136,11 +145,19 @@ def insertIntoDatabase(query, authorId, docUID):
     #to the author
     else:
         publicationId = MySQLdb.escape_string(str(row[0]))
+        timesCitedOLD = row[1]
         cursor.execute("SELECT id from publications_authors where publication_id = '%s' AND author_id = '%s'" % (publicationId, authorId))
         row = cursor.fetchone()
         if row is None:
             #The author is not yet associated with this publication
             cursor.execute("INSERT INTO publications_authors (author_id, publication_id) VALUES (%s,%s)" % (authorId,publicationId))
+
+        #if the title is already associated with the author
+        #Check if there are no new citations for the publication
+        if  timesCitedNEW > timesCitedOLD :
+            #If there is a new citation update the publication times_cited
+            cursor.execute("UPDATE publications SET times_cited = %s WHERE id = %s" % (MySQLdb.escape_string(str(timesCitedNEW)), publicationId))
+        
             
     cursor.close()
     
@@ -152,32 +169,19 @@ def insertIntoDatabase(query, authorId, docUID):
 #For each author ID this function will be executed
 #reteriving all the publications for the provided ID
 #Param: reseracherId: The author WOK id to be used for the query
-def getDataFromWebService(researcherId,authorId):
+def getDataFromWebService(researcherId,authorId,sessionId):
 
-    authURL = 'http://search.webofknowledge.com/esti/wokmws/ws/WOKMWSAuthenticate?wsdl'
+    
     searchURL = 'http://search.webofknowledge.com/esti/wokmws/ws/WokSearch?wsdl'
-    searchLiteURL = 'http://search.webofknowledge.com/esti/wokmws/ws/WokSearchLite?wsdl'
-    
-    #Creating a web service client to retreive the SID
-    #that will be used for executing queries in WOK
-    c = Client(authURL)
-    
-    #getting the SID from the created web service client
-    result = c.service.authenticate()
-    
-    print 'Authenticated\n'
-    
-    
-    #c.set_options(headers={'Cookie':'SID="'+result+'"'})
-    
+    #searchLiteURL = 'http://search.webofknowledge.com/esti/wokmws/ws/WokSearchLite?wsdl'
     
     #including the SID into the web client query headers
     #THIS IS MANDATORY FOR THE WEB SERVICE CLIENT TO WORK
-    client = Client(searchURL, headers={'Cookie':'SID="'+result+'"'})
+    client = Client(searchURL, headers={'Cookie':'SID="'+sessionId+'"'})
     
     #Establishing the query parameters for the query
     queryParams = client.factory.create('queryParameters')
-    queryParams['databaseId'] = 'WOS'
+    queryParams['databaseId'] = 'WOK'
     queryParams['queryLanguage'] = 'en'
     queryParams['userQuery'] = 'AI=('+researcherId+')'
     
@@ -189,33 +193,40 @@ def getDataFromWebService(researcherId,authorId):
     
     
     try:
-        print 'Searching...\n'
+        print 'Searching...'
         
         #retrieve the first results
         result = client.service.search(queryParams, retParams)
-        extractRecords(authorId,result['records'])
         
         #getting the total records count
+        recordsCount = 0
         recordsCount = result['recordsFound']
+        print "Records found: " + str(recordsCount)
+        
+        #getting the Query ID number in case that
+        #that more than 100 records are found
+        queryId = result['queryId']
+        
+        #Extract the first 100 records (or less)
+        extractRecords(authorId,result['records'])
         
         #Since WOK limits the amount of results to 100 there is a need
         #to retrieve all the results if the query results count is bigger than 100
+        print "Extracting..."
         if recordsCount > 100:
-            print "Extracting..."
-            for x in range(1,int(math.ceil(result['recordsFound']/100.0))):
+            for x in range(1,int(math.ceil(recordsCount/100.0))):
                 retParams['firstRecord'] = (x*100)+1
-                result = client.service.retrieve(result['queryId'],retParams)
+                
+                print retParams['firstRecord']
+                
+                #Re run the query for the next 100 records (or less)
+                result = client.service.retrieve(queryId,retParams)
                 
                 #EXTRACT records from xml and insert into the database
                 extractRecords(authorId,result['records'])
-                
-        print 'Records Found: ' + str(recordsCount)
-        print 'Closing'
-        c.service.closeSession()
         
     except WebFault, e:
         print e
-
 #End function getDataFromWebService
 
 
@@ -240,16 +251,31 @@ def getAuthorsData():
 
 
 #MAIN
+authURL = 'http://search.webofknowledge.com/esti/wokmws/ws/WOKMWSAuthenticate?wsdl'
+
+#Creating a web service client to retreive the SID
+#that will be used for executing queries in WOK
+c = Client(authURL)
+
+
+#getting the SID from the created web service client
+sessionId = c.service.authenticate()
+
+print 'Authenticated'
+
 for row in getAuthorsData():
     if row[1]:
         authorId = str(row[0])
         researcherId = str(row[1])
-        print "Fetching data for author id: "+ str(authorId)
-        getDataFromWebService(researcherId,authorId)
+        print "\nFetching data for reserarcher id: "+ str(researcherId)
+        getDataFromWebService(researcherId,authorId,sessionId)
+        time.sleep(0.25)
 
 
+print "Closing session"
+c.service.closeSession()
 
-
+#END MAIN
 
 
 

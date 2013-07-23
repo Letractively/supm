@@ -14,6 +14,19 @@ class GScholarCitationItem(Item):
     abstract = Field()
     citedBy = Field()
     authorId = Field()
+    docUID = Field()
+    source = Field()
+    
+class ScopusCitationItem(Item):
+    authorId = Field()
+    title = Field()
+    pubDate = Field()
+    pubUrl = Field()
+    pubType = Field()
+    citedBy = Field()
+    docUID = Field()
+    source = Field()
+    
    
     
     

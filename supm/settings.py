@@ -10,7 +10,7 @@ BOT_NAME = 'supm'
 
 SPIDER_MODULES = ['supm.spiders']
 NEWSPIDER_MODULE = 'supm.spiders'
-ITEM_PIPELINES = ['supm.pipelines.GScholarPipeline',]
+ITEM_PIPELINES = ['supm.pipelines.publicationsPipeline']
 DOWNLOAD_DELAY = 0.5
 COOKIES_ENABLED = False
 #CONCURRENT_REQUESTS = 1 #default 16
